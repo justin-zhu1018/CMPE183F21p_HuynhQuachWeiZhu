@@ -1,0 +1,32 @@
+.main-container {
+  text-align: left;
+  padding: 10px;
+  margin: 0;
+}
+
+.credentials {
+  border-bottom: 1px solid black;
+}
+
+.tasks-list {
+  padding: 10px 0;
+  border-bottom: 1px solid black;
+}
+
+.tasks-create {
+  padding: 10px 0;
+  width: 600px;
+  text-align: right;
+}
+
+.task {
+  width: fit-content;
+}
+
+.task:hover {
+  cursor: pointer;
+}
+
+.completed {
+  text-decoration: line-through;
+}
