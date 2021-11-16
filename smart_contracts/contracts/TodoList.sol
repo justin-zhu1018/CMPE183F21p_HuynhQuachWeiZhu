@@ -14,7 +14,7 @@ contract TodoList { // Contract name
   // Run every time contract is deployed
   constructor() {
     taskCount = 0;
-    createTask('Test the contract');
+    createTask('Predeployed Task 1');
   }
 
   // Events are useful to know when things are done (states)

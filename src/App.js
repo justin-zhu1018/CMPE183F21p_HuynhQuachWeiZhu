@@ -92,9 +92,22 @@ export default class App extends Component {
     return (
       <div className="main-container">
         <div className="credentials">
-          <p style={{fontWeight: 'bold'}}>Credentials</p>
+          <p style={{fontWeight: 'bold'}}>General Information</p>
           <p>Network: {this.state.network}</p>
           <p>Account: {this.state.account}</p>
+        </div>
+        <div className="tasks-create">
+          <div style={{textAlign: 'left'}}>
+            <p style={{fontWeight: 'bold'}}>Create Task</p>
+          </div>
+          <Input
+            value={this.state.content}
+            onChange={(e) => this.updateContent(e.target.value)}
+          />
+          <div style={{margin: "10px"}} />
+          <Button onClick={this.createTask}>
+            Submit
+          </Button>
         </div>
         <div className="tasks-list">
           <p style={{fontWeight: 'bold'}}>List of Tasks</p>
@@ -116,19 +129,6 @@ export default class App extends Component {
                 )
               })
           }
-        </div>
-        <div className="tasks-create">
-          <div style={{textAlign: 'left'}}>
-            <p style={{fontWeight: 'bold'}}>Create Task</p>
-          </div>
-          <Input
-            value={this.state.content}
-            onChange={(e) => this.updateContent(e.target.value)}
-          />
-          <div style={{margin: "10px"}} />
-          <Button onClick={this.createTask}>
-            Submit
-          </Button>
         </div>
       </div>
     );
