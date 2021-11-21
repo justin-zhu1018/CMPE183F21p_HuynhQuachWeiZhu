@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { Route, Link, Routes, BrowserRouter as Router } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
+// Pages
+import MainGame from './pages/main/main'
+
+const routing = (
+  <Router>
+    <div>
+      <Routes>
+        <Route exact path="/" element={<MainGame />} />
+      </Routes>
+    </div>
+  </Router>
+)
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  routing,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

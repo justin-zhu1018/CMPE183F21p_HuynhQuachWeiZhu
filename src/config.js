@@ -1,5 +1,5 @@
-export const TODO_LIST_ADDRESS = '0xc2fff8B2f59F7132Cba60545b75E07f8537d9004';
-export const TODO_LIST_ABI = [
+export const ADDRESS = '0xD4855Df56f27CE40DCeDFa5Dce1eAbcBBeCCa226';
+export const ABI = [
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -11,17 +11,17 @@ export const TODO_LIST_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "id",
+        "name": "_pokedex_id",
         "type": "uint256"
       },
       {
         "indexed": false,
-        "internalType": "bool",
-        "name": "completed",
-        "type": "bool"
+        "internalType": "uint256",
+        "name": "_species_count",
+        "type": "uint256"
       }
     ],
-    "name": "TaskCompleted",
+    "name": "PokemonCaught",
     "type": "event"
   },
   {
@@ -30,28 +30,22 @@ export const TODO_LIST_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "id",
+        "name": "_pokedex_id",
         "type": "uint256"
       },
       {
         "indexed": false,
-        "internalType": "string",
-        "name": "content",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "bool",
-        "name": "completed",
-        "type": "bool"
+        "internalType": "uint256",
+        "name": "_count",
+        "type": "uint256"
       }
     ],
-    "name": "TaskCreated",
+    "name": "SpeciesAdded",
     "type": "event"
   },
   {
     "inputs": [],
-    "name": "taskCount",
+    "name": "pokemon_counts",
     "outputs": [
       {
         "internalType": "uint256",
@@ -71,7 +65,7 @@ export const TODO_LIST_ABI = [
         "type": "uint256"
       }
     ],
-    "name": "tasks",
+    "name": "pokemons",
     "outputs": [
       {
         "internalType": "uint256",
@@ -79,14 +73,19 @@ export const TODO_LIST_ABI = [
         "type": "uint256"
       },
       {
-        "internalType": "string",
-        "name": "content",
-        "type": "string"
+        "internalType": "uint256",
+        "name": "species_id",
+        "type": "uint256"
       },
       {
-        "internalType": "bool",
-        "name": "completed",
-        "type": "bool"
+        "internalType": "uint256",
+        "name": "pokedex_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "own",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -96,12 +95,66 @@ export const TODO_LIST_ABI = [
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "_content",
-        "type": "string"
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
-    "name": "createTask",
+    "name": "species",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "pokedex_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "caught",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "unique_species_count",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pokedex_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_count",
+        "type": "uint256"
+      }
+    ],
+    "name": "addSpecies",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -110,11 +163,11 @@ export const TODO_LIST_ABI = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_id",
+        "name": "_pokedex_id",
         "type": "uint256"
       }
     ],
-    "name": "toggleCompleted",
+    "name": "caughtPokemon",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
