@@ -1,6 +1,19 @@
 # eth-react-app
 A playground repository with proper connection between smart contracts and a React application
 
+## Useful Commands
+`truffle compile`
+Compile smart contracts. Change directory (cd) to smart_contracts folder first.
+
+`truffle migrate`
+Second step after compiling contracts. Again, you want to be in the smart_contracts folder. You must also be running Ganache.
+
+`truffle migrate --reset`
+Same as above but with --reset tag. This is good for when you want to re-migrate your contracts after making changes while Ganache is still running.
+
+`npm start`
+Run the frontend. Change directory (cd) back to eth-react-app folder first.
+
 ## Getting Started
 I will simply be listing the steps here. Details on each step will follow below.
 1. Clone the repository
