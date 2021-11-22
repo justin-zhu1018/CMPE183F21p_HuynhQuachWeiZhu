@@ -11,6 +11,7 @@ import {
   MDBBtn,
 } from "mdb-react-ui-kit"
 import "./main.css"
+import PokemonImage from "../../images/pokemon.png"
 
 export default function Main() {
   const [network, setNetwork] = useState()
@@ -131,18 +132,18 @@ export default function Main() {
         <div className="row">
           <main role="main" className="d-flex justify-content-center">
             <div className="content mr-auto ml-auto" style={{ opacity: "0.8" }}>
-              <h1 style={{ color: "black" }}>KryptoBirdz - NFT Marketplace</h1>
-              <h1 style={{ color: "black" }}>KryptoBirdz - NFT Marketplace</h1>
-              <h1 style={{ color: "black" }}>KryptoBirdz - NFT Marketplace</h1>
-              <form></form>
+              <div className="pokemon">
+                <img src={PokemonImage} />
+              </div>
+              <h1 style={{ color: "black" }}>Explore and catch pokemon! </h1>
             </div>
           </main>
         </div>
         <hr></hr>
-        <div className="d-flex flex-row ">
-          {species.map((creature, ind) => {
-            return (
-              <div>
+        <div className="poke-card">
+          <div className="d-flex flex-row ">
+            {species.map((creature, ind) => {
+              return (
                 <div>
                   <MDBCard className="token img" style={{ maxWidth: "22rem" }}>
                     <MDBCardImage
@@ -165,9 +166,9 @@ export default function Main() {
                     </MDBCardBody>
                   </MDBCard>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })}
+          </div>
         </div>
       </div>
     </div>
