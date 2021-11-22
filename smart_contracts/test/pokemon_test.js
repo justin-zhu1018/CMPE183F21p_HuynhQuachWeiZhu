@@ -14,7 +14,7 @@ contract("World", function (accounts) {
       let caught_count = await instance.species(1)
       caught_count = caught_count.caught.words[0]
       //catch pokemon
-      await instance.caughtPokemon(1)
+      await instance.caughtPokemon(1,1,2,3,4,5,6,7)
       let population = await instance.pokemon_counts()
       population = population.words[0]
       assert.equal(population, 1, "Correct captured population");
@@ -32,7 +32,7 @@ contract("World", function (accounts) {
   it("Capture Extincted Pokemon", function () {
     return Election.deployed().then(async function (instance) {
       for (let i=0; i<5; i++){
-        await instance.caughtPokemon(1)
+        await instance.caughtPokemon(1,1,2,3,4,5,6,7)
       }
       let caught_count = await instance.species(1)
       assert.equal(caught_count.caught.words[0], caught_count.count.words[0], "Correct maxed Species");
@@ -48,7 +48,7 @@ contract("World", function (accounts) {
     return Election.deployed().then(async function (instance) {
       let population = await instance.pokemon_counts()
       population = population.words[0]
-      await instance.caughtPokemon(9999)
+      await instance.caughtPokemon(9999,1,2,3,4,5,6,7)
       let new_population = await instance.pokemon_counts()
       assert.equal(population, new_population.words[0], "Correct captured population");
     });

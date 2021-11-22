@@ -1,4 +1,4 @@
-export const ADDRESS = '0xf03B0A85794B8a7f7ABf3611ECaDd2423a62EE1D';
+export const ADDRESS = '0xE0Dd19e3572aF226e34A6Cb30F5488D54Cb3723e';
 export const ABI = [
   {
     "inputs": [],
@@ -86,6 +86,41 @@ export const ABI = [
         "internalType": "address",
         "name": "own",
         "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "hp",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "att",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "def",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "spatt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "spdef",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "speed",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lv",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -164,6 +199,41 @@ export const ABI = [
       {
         "internalType": "uint256",
         "name": "_pokedex_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_hp",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_att",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_def",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_spatt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_spdef",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_speed",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_lv",
         "type": "uint256"
       }
     ],

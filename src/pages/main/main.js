@@ -73,7 +73,14 @@ export default function Main() {
                     species_id: pokemon.species_id,
                     own: pokemon.own,
                     id: pokemon.id,
-                    poke_info: await getPokeobj(pokemon.pokedex_id)
+                    poke_info: await getPokeobj(pokemon.pokedex_id),
+                    hp: pokemon.hp,
+                    att: pokemon.att,
+                    def: pokemon.def,
+                    spatt: pokemon.spatt,
+                    spdef: pokemon.spdef,
+                    speed: pokemon.speed,
+                    lv: pokemon.lv,
                 })
         }
         setUsersPokemon(temp_arr)
@@ -93,7 +100,8 @@ export default function Main() {
 
         if (random_pokemon) {
             //catch
-            await gameWorld.methods.caughtPokemon(random_pokemon.pokedex_id).send({ from: account }).then(()=>{
+            //pokedex,hp,att,def,spatt,spdef,sp,lv
+            await gameWorld.methods.caughtPokemon(random_pokemon.pokedex_id,100,100,100,100,100,100,100).send({ from: account }).then(()=>{
                 window.location.reload();
             })
         }
@@ -142,7 +150,7 @@ export default function Main() {
                 {usersPokemon && usersPokemon.map((creature, ind) => {
                     return <div key={creature.id}>
                         <img src={creature.poke_info.img} height="50" width="50" />{" "}
-                        {creature.poke_info.name}-{creature.id}-{creature.species_id}
+                        {creature.poke_info.name}-{creature.id}-{creature.species_id}-lv:{creature.lv}-hp:{creature.hp}...
                     </div>
                 })}
             </CardBody>

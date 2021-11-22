@@ -18,6 +18,13 @@ contract World {
         uint256 pokedex_id;
         address own;
         //Add poke stats down here maybe
+        uint256 hp;
+        uint256 att;
+        uint256 def;
+        uint256 spatt;
+        uint256 spdef;
+        uint256 speed;
+        uint256 lv;
     }
 
     // Maps
@@ -54,7 +61,7 @@ contract World {
         emit SpeciesAdded(_pokedex_id, _count); // Broadcast the event
     }
 
-    function caughtPokemon(uint256 _pokedex_id)
+    function caughtPokemon(uint256 _pokedex_id, uint256 _hp, uint256 _att, uint256 _def, uint256 _spatt, uint256 _spdef, uint256 _speed, uint256 _lv)
         public
     {
         if (species[_pokedex_id].caught < species[_pokedex_id].count) {
@@ -67,7 +74,8 @@ contract World {
                 pokemon_counts,
                 _species.caught,
                 _pokedex_id,
-                msg.sender
+                msg.sender,
+                _hp,_att,_def,_spatt,_spdef,_speed,_lv
             );
             species[_pokedex_id] = _species;
             emit SpeciesAdded(_pokedex_id, _species.caught); // Broadcast the event
