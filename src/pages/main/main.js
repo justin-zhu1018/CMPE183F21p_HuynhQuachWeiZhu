@@ -4,15 +4,23 @@ import { ABI, ADDRESS } from "../../config"
 import { getPokeobj } from "../pokemon_functions/pokemon"
 import { getTypes } from "../pokemon_functions/pokemon"
 import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCardImage,
-  MDBBtn,
-} from "mdb-react-ui-kit"
+  Box,
+  Text,
+  Image,
+  Button,
+  Badge,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react"
 import "./main.css"
 import PokemonImage from "../../images/pokemon.png"
+import { useDisclosure } from "@chakra-ui/react"
+import BasicUsage from "./BasicUsage"
 
 export default function Main() {
   const [network, setNetwork] = useState()
@@ -20,6 +28,7 @@ export default function Main() {
   const [gameWorld, setGameWorld] = useState()
   const [species, setSpecies] = useState([])
   const [usersPokemon, setUsersPokemon] = useState()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const [species_counts, setSpecies_counts] = useState(0)
   const [pokemon_counts, setPokemon_counts] = useState(0)
@@ -116,63 +125,71 @@ export default function Main() {
   }
 
   return (
-    <div className="container-filled">
-      <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-        <div
-          className="navbar-brand col-sm-3 col-md-3 mr-0"
-          style={{ color: "white" }}
-        >
-          <p>Account: {account}</p>
-        </div>
+    <Box>
+      <Box className="container-filled">
+        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+          <Box
+            className="navbar-brand col-sm-3 col-md-3 mr-0"
+            style={{ color: "white" }}
+          >
+            <p>Account: {account}</p>
+          </Box>
 
-        <div className="d-flex align-items-center" style={{ color: "white" }}>
-          <p>Network: {network}</p>
-        </div>
-      </nav>
+          <Box className="d-flex align-items-center" style={{ color: "white" }}>
+            <p>Network: {network}</p>
+          </Box>
+        </nav>
 
-      <div className="container-fluid mt-1">
-        <div className="row">
-          <main role="main" className="d-flex justify-content-center">
-            <div className="content mr-auto ml-auto" style={{ opacity: "0.8" }}>
-              <div className="pokemon">
-                <img src={PokemonImage} />
-              </div>
-              <h1 style={{ color: "black" }}>Explore and catch pokemon! </h1>
-            </div>
-          </main>
-        </div>
-        <hr></hr>
-        <div className="poke-card">
-          <div className="d-flex flex-row ">
-            {species.map((creature, ind) => {
-              return (
-                <div>
-                  <MDBCard className="token img" style={{ maxWidth: "22rem" }}>
-                    <MDBCardImage
-                      src={creature.poke_info.img}
-                      position="top"
-                      height="250rem"
-                      style={{ marginRight: "4px" }}
-                    />
-                    <MDBCardBody>
-                      <MDBCardTitle>
-                        {" "}
-                        Name: {creature.poke_info.name}{" "}
-                      </MDBCardTitle>
-                      <MDBCardText>
-                        {" "}
-                        The KryptoBirdz are 20 uniquely generated KBirdz from
-                        the cyberpunk cloud galaxy Mystopia!{" "}
-                      </MDBCardText>
-                      <MDBBtn>Download</MDBBtn>
-                    </MDBCardBody>
-                  </MDBCard>
+        <Box className="container-fluid mt-1">
+          <Box className="row">
+            <main role="main" className="d-flex justify-content-center">
+              <div
+                className="content mr-auto ml-auto"
+                style={{ opacity: "0.8" }}
+              >
+                <div className="pokemon">
+                  <img src={PokemonImage} />
                 </div>
-              )
-            })}
-          </div>
-        </div>
-      </div>
-    </div>
+                <Text fontSize="50px" fontWeight="semibold" color="black">
+                  Explore and catch pokemon!
+                </Text>
+              </div>
+            </main>
+          </Box>
+          <hr></hr>
+          <Box className="poke-card" alignItems="center">
+            <Box className="d-flex flex-row ">
+              {species.map((creature, ind) => {
+                return (
+                  <Box>
+                    <Box className="token img" style={{ maxWidth: "22rem" }}>
+                      <Image
+                        src={creature.poke_info.img}
+                        position="top"
+                        height="12rem"
+                      />
+                      <Box mt="2" letterSpacing="wide">
+                        <Text textTransform="uppercase">
+                          {creature.poke_info.name}
+                        </Text>
+                        <Badge borderRadius="full" px="2" colorScheme="teal">
+                          {creature.poke_type}
+                        </Badge>
+                        <Box>
+                          {" "}
+                          <Button background="#B794F4">
+                            {creature.count - creature.caught} left
+                          </Button>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                )
+              })}
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   )
 }
