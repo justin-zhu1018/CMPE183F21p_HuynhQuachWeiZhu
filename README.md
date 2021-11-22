@@ -5,8 +5,20 @@ By:
 - Thai Quach
 - Bella Wei
 
-# eth-react-app
-A playground repository with proper connection between smart contracts and a React application
+# Pokechain
+This project adds real-world value and ownership to the Pokemon game by leveraging the Ethereum blockchain. This project will be creating a record-keeping system that maps available pokemon to individual owner addresses. With this, we can simulate real ownership of these digital creatures on the internet. The goal is to create a record-keeping system effective enough to be leveraged by many developers to use in their game system.
+
+# Architecture
+
+## High-level system
+
+![arch2](https://user-images.githubusercontent.com/18486562/142946314-0d90d740-efbe-4d63-b33a-5da70ca95ccc.png)
+
+## Constract design
+
+In this contract, there are two main features keeping track of pokemon species population and ownership of the individual. The population system keeps track of how many wild and captured pokemon. The ownership system keeps track of captured pokemon and their owner's addresses.
+
+![arch1](https://user-images.githubusercontent.com/18486562/142946311-0337c4cd-30a0-4b3d-83ae-ee9118b48a48.png)
 
 ## Useful Commands
 `truffle compile`
@@ -17,6 +29,9 @@ Second step after compiling contracts. Again, you want to be in the smart_contra
 
 `truffle migrate --reset`
 Same as above but with --reset tag. This is good for when you want to re-migrate your contracts after making changes while Ganache is still running.
+
+`truffle test`
+Compile and test the smart contract with unit test scripts.
 
 `npm start`
 Run the frontend. Change directory (cd) back to eth-react-app folder first.
@@ -81,6 +96,12 @@ To connect to the local network, you will want to navigate to the top of the ext
 
 To connect a test account with test Ethereum you can use, go to Ganache's app. That table of addresses is a table of accounts. Pick any one of them and click on the key to the right of the table row. This will show the private key that you can copy over to MetaMask to create your account. With the key copied, go back to MetaMask and click on the icon to the top-right of the popup. This will show your accounts. Click import account and paste the private key. After importing, you should see there is ETH you can use (assuming you are on the private network already. Now we have to connect that account to the app. This can be done by navigating to the app (localhost:3000), clicking on the three dots in the MetaMask popup, Connected sites, and Manually connect to the current site. Once done, refresh the page, and you should see the Account update to the one you connected the app to. Now you can use the app to create tasks and mark them as complete.
 
-To create a task, type the task into the input and click submit. A popup should come up from MetaMask to verify the transaction. Proceed as normal and you should see the List of Tasks update with the task you added. To mark a task as complete, simply click on the task in the List of Tasks, proceed with the transaction via MetaMask, and you should see the task marked.
+### Unit test
+
+[8 unit tests](https://github.com/justin-zhu1018/CMPE183F21p_HuynhQuachWeiZhu/tree/master/smart_contracts/test) were written and handle by NodeJS and Truffle.
+
+Runs `truffle test`
+
+![image](https://user-images.githubusercontent.com/18486562/142796465-cfa480eb-7e19-4a65-b810-d29723cc6b68.png)
 
 That's it! If any problems come up, good luck solving them 👍
