@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import Web3 from "web3"
 import { ABI, ADDRESS } from "../../config"
 import { getPokeobj } from "../pokemon_functions/pokemon"
+import { getTypes } from "../pokemon_functions/pokemon"
 import {
   MDBCard,
   MDBCardBody,
@@ -61,6 +62,7 @@ export default function Main() {
         count: species.count,
         id: species.id,
         poke_info: await getPokeobj(species.pokedex_id),
+        poke_type: await getTypes(species.id),
       })
     }
     setSpecies(temp_arr)
