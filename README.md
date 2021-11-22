@@ -1,3 +1,10 @@
+# SJSU_CMPE183 fall 2021 Final Project
+By:
+- Jason Huynh
+- Justin Zhu
+- Thai Quach
+- Bella Wei
+
 # eth-react-app
 A playground repository with proper connection between smart contracts and a React application
 

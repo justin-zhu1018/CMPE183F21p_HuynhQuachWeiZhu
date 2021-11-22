@@ -140,7 +140,7 @@ export default function Main() {
                     Caught-WorldID-SpeciesRecordNum
                 </CardSubtitle>
                 {usersPokemon && usersPokemon.map((creature, ind) => {
-                    return <div key={ind}>
+                    return <div key={creature.id}>
                         <img src={creature.poke_info.img} height="50" width="50" />{" "}
                         {creature.poke_info.name}-{creature.id}-{creature.species_id}
                     </div>
