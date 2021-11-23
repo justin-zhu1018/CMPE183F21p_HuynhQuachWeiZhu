@@ -3,24 +3,10 @@ import Web3 from "web3"
 import { ABI, ADDRESS } from "../../config"
 import { getPokeobj } from "../pokemon_functions/pokemon"
 import { getTypes } from "../pokemon_functions/pokemon"
-import {
-  Box,
-  Text,
-  Image,
-  Button,
-  Badge,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react"
+import { Box, Text, Image, Button, Badge, HStack } from "@chakra-ui/react"
 import "./main.css"
 import PokemonImage from "../../images/pokemon.png"
 import { useDisclosure } from "@chakra-ui/react"
-import BasicUsage from "./BasicUsage"
 
 export default function Main() {
   const [network, setNetwork] = useState()
@@ -92,6 +78,13 @@ export default function Main() {
           own: pokemon.own,
           id: pokemon.id,
           poke_info: await getPokeobj(pokemon.pokedex_id),
+          hp: pokemon.hp,
+          att: pokemon.att,
+          def: pokemon.def,
+          spatt: pokemon.spatt,
+          spdef: pokemon.spdef,
+          speed: pokemon.speed,
+          lv: pokemon.lv,
         })
     }
     setUsersPokemon(temp_arr)
@@ -112,7 +105,16 @@ export default function Main() {
     if (random_pokemon) {
       //catch
       await gameWorld.methods
-        .caughtPokemon(random_pokemon.pokedex_id)
+        .caughtPokemon(
+          random_pokemon.pokedex_id,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100
+        )
         .send({ from: account })
         .then(() => {
           window.location.reload()
@@ -125,7 +127,7 @@ export default function Main() {
   }
 
   return (
-    <Box>
+    <HStack spacing="24px">
       <Box className="container-filled">
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
           <Box
@@ -140,29 +142,78 @@ export default function Main() {
           </Box>
         </nav>
 
-        <Box className="container-fluid mt-1">
-          <Box className="row">
-            <main role="main" className="d-flex justify-content-center">
-              <div
-                className="content mr-auto ml-auto"
-                style={{ opacity: "0.8" }}
-              >
-                <div className="pokemon">
-                  <img src={PokemonImage} />
-                </div>
-                <Text fontSize="50px" fontWeight="semibold" color="black">
-                  Explore and catch pokemon!
-                </Text>
+        <Box className="row">
+          <main role="main" className="d-flex justify-content-center">
+            <div className="content mr-auto ml-auto" style={{ opacity: "0.8" }}>
+              <div className="pokemon">
+                <img src={PokemonImage} />
               </div>
-            </main>
+              <Text fontSize="50px" fontWeight="semibold" color="black">
+                Explore and catch pokemon!
+              </Text>
+              <Button
+                background="#00A3C4"
+                size="20px"
+                onClick={() => {
+                  catch_random_pokemon()
+                }}
+              >
+                Explore!
+              </Button>
+            </div>
+          </main>
+        </Box>
+        <hr></hr>
+        <Box className="poke-card" alignItems="center">
+          <Box className="d-flex flex-row ">
+            {species.map((creature, ind) => {
+              return (
+                <Box>
+                  <Box
+                    background="#EDF2F7"
+                    className="token img"
+                    style={{ maxWidth: "22rem" }}
+                  >
+                    <Image
+                      src={creature.poke_info.img}
+                      position="top"
+                      height="12rem"
+                    />
+                    <Box mt="2" letterSpacing="wide">
+                      <Text textTransform="uppercase">
+                        {creature.poke_info.name}
+                      </Text>
+                      <Badge borderRadius="full" px="2" background="green">
+                        {creature.poke_type}
+                      </Badge>
+                      <Box>
+                        {" "}
+                        <Button background="#B794F4">
+                          {creature.count - creature.caught} left
+                        </Button>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+              )
+            })}
           </Box>
-          <hr></hr>
-          <Box className="poke-card" alignItems="center">
-            <Box className="d-flex flex-row ">
-              {species.map((creature, ind) => {
+        </Box>
+
+        <Box className="userpokemon_container">
+          <Text fontSize="50px" fontWeight="semibold" color="black">
+            Your Pokemons:
+          </Text>
+          <Box className="d-flex flex-row ">
+            {usersPokemon &&
+              usersPokemon.map((creature, ind) => {
                 return (
                   <Box>
-                    <Box className="token img" style={{ maxWidth: "22rem" }}>
+                    <Box
+                      key={creature.ind}
+                      className="token img"
+                      style={{ maxWidth: "22rem" }}
+                    >
                       <Image
                         src={creature.poke_info.img}
                         position="top"
@@ -172,7 +223,7 @@ export default function Main() {
                         <Text textTransform="uppercase">
                           {creature.poke_info.name}
                         </Text>
-                        <Badge borderRadius="full" px="2" colorScheme="teal">
+                        <Badge borderRadius="full" px="2" background="green">
                           {creature.poke_type}
                         </Badge>
                         <Box>
@@ -186,10 +237,9 @@ export default function Main() {
                   </Box>
                 )
               })}
-            </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
+    </HStack>
   )
 }
