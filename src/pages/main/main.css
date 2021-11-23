@@ -46,3 +46,9 @@ img {
   text-align: center;
   top: 8%;
 }
+
+.userpokemon_container {
+  position: absolute;
+  padding-top: 400px;
+  margin-left: 150px;
+}
