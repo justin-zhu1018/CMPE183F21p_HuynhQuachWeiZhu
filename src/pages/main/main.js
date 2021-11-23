@@ -6,7 +6,7 @@ import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from 'react
 import './main.css'
 
 export default function Main() {
-
+		const [status, setStatus] = useState('OK')
     const [network, setNetwork] = useState()
     const [account, setAccount] = useState()
     const [gameWorld, setGameWorld] = useState()
@@ -17,32 +17,34 @@ export default function Main() {
     const [pokemon_counts, setPokemon_counts] = useState(0)
 
     useEffect(async () => {
-        await loadBlockchainData().then(async (resp) => {
-            if (resp) {
-                await loadWorld(resp.gameInst)
-                await loadUsersPokemon(resp.gameInst, resp.account)
-            }
-        })
+			await loadBlockchainData().then(async (resp) => {
+				if (resp) {
+					await loadWorld(resp.gameInst)
+					await loadUsersPokemon(resp.gameInst, resp.account)
+				}
+			})
     }, [])
 
     async function loadBlockchainData() {
-        const web3 = new Web3(Web3.givenProvider || "http://localhost:7545"); // for MetaMask
-        const network = await web3.eth.net.getNetworkType(); // Network you're connected to
-        const accounts = await web3.eth.getAccounts(); // Array of accounts
-        const gameInst = new web3.eth.Contract(ABI, ADDRESS);
+			const web3 = new Web3(Web3.givenProvider || "http://localhost:7545"); // for MetaMask
+			const network = await web3.eth.net.getNetworkType(); // Network you're connected to
+			const accounts = await web3.eth.getAccounts(); // Array of accounts
+			const gameInst = new web3.eth.Contract(ABI, ADDRESS);
 
-        setNetwork(network || null);
-        setAccount(accounts[0] || null);
-        setGameWorld(gameInst || null);
+			setNetwork(network || null);
+			setAccount(accounts[0] || null);
+			setGameWorld(gameInst || null);
 
-        console.log("network:", network);
-        console.log("accounts:", accounts);
-        console.log('game instance:', gameInst);
-        return { gameInst, account: accounts[0] }
+			console.log("network:", network);
+			console.log("accounts:", accounts);
+			console.log('game instance:', gameInst);
+			return { gameInst, account: accounts[0] }
     }
 
     async function loadWorld(gameWorld) {
         const species_counts = await gameWorld.methods.unique_species_count().call()
+					.catch(()=>{setStatus('Did you replace your address and ABI yet?')});
+				setStatus("OK");
         setSpecies_counts(species_counts)
 
         let temp_arr = []
@@ -57,7 +59,7 @@ export default function Main() {
             })
         }
         setSpecies(temp_arr)
-        console.log(temp_arr)
+        console.log('Load world:', temp_arr)
     }
 
     async function loadUsersPokemon(gameWorld, account) {
@@ -84,37 +86,89 @@ export default function Main() {
                 })
         }
         setUsersPokemon(temp_arr)
-        console.log(temp_arr)
+        console.log('Load user pkmn', temp_arr)
     }
 
     async function catch_random_pokemon() {
-        let random_pokemon = 0
-        for (let i = 0; i < 10000; i++) {
-            random_pokemon = getRandomInt(species.length)
-            if (species[random_pokemon].caught < species[random_pokemon].count) {
-                random_pokemon = species[random_pokemon]
-                break;
-            }
-            random_pokemon = null
-        }
+			if(status === "Did you replace your address and ABI yet?"){
+				return;
+			}
+			if(network && account) {
+				try {
+					let random_pokemon = 0
+					for (let i = 0; i < 10000; i++) {
+							random_pokemon = getRandomInt(species.length)
+							if (species[random_pokemon].caught < species[random_pokemon].count) {
+									random_pokemon = species[random_pokemon]
+									break;
+							}
+							random_pokemon = null
+					}
 
-        if (random_pokemon) {
-            //catch
-            //pokedex,hp,att,def,spatt,spdef,sp,lv
-            await gameWorld.methods.caughtPokemon(random_pokemon.pokedex_id,100,100,100,100,100,100,100).send({ from: account }).then(()=>{
-                window.location.reload();
-            })
-        }
+					if (random_pokemon) {
+							//catch
+							//pokedex,hp,att,def,spatt,spdef,sp,lv
+							await gameWorld.methods.caughtPokemon(random_pokemon.id, random_pokemon.pokedex_id, 100,100,100,100,100,100,100).send({ from: account }).then(()=>{
+									window.location.reload();
+							})
+					}
+					setStatus('OK')	
+				} catch (error) {
+					console.log(error);
+					setStatus('User denied transaction signature!');
+				}
+			} else {
+				setStatus('Please make sure your MetaMask account is connected!')
+			}
     }
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
 
+		const connectToMetaMask = async () => {
+			if (window.ethereum) {
+				try {
+					await window.ethereum.request({ method: 'eth_requestAccounts' });
+					window.location.reload();
+				} catch (error) {
+					if (error.code === 4001) {
+						console.log(error);
+						setStatus('User rejected MetaMask request!')
+					}
+				}
+			}
+		}
 
     return <div>
-        <p>Network: {network}</p>
-        <p>Account: {account}</p>
+        <div className="info">
+					<div>
+						<div style={{display: 'inline'}}>
+							{'Status: '}
+						</div>
+						{status === 'OK'
+							? <div style={{display: 'inline', color: 'green'}}>
+									{status}
+								</div>
+							: <div style={{display: 'inline',  color: 'red'}}>
+									{status}
+								</div>
+						}
+					</div>
+					<div>
+						Network: {network}
+					</div>
+					<div>
+						Account: {account ? account : 'Not connected'}
+					</div>
+					{!account
+						? <div style={{marginTop: '10px'}}>
+								<Button onClick={connectToMetaMask}>
+									Connect
+								</Button>
+							</div>
+						: null}
+        </div>
         <Card className="poke-card">
             <CardBody>
                 <CardTitle tag="h5">

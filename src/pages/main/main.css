@@ -1,5 +1,13 @@
+.info {
+	margin: 0 2vw;
+	margin-top: 2vw;
+	padding: 1rem;
+	border: 1px solid rgba(0, 0, 0, 0.125);
+	border-radius: 0.25rem;
+}
+
 .poke-card{
-    width: 20vw;
-    float: left;
-    margin: 2vw;
+	width: 20vw;
+	float: left;
+	margin: 2vw;
 }

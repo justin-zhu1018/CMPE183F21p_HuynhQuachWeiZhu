@@ -12,6 +12,7 @@ contract World {
         uint256 caught;
     }
 
+    // Captured pokemon
     struct Pokemon {
         uint256 id;
         uint256 species_id;
@@ -40,10 +41,10 @@ contract World {
         unique_species_count = 0;
         pokemon_counts = 0;
         //init some species
-        addSpecies(1, 2);
-        addSpecies(4, 2);
-        addSpecies(7, 2);
-        addSpecies(10, 2);
+        addSpecies(1, 2); //Bulbasaur id: 1
+        addSpecies(4, 2); //Charmander id: 4
+        addSpecies(7, 2); //Squirtle id: 7
+        addSpecies(10, 2); //Caterpie id: 10
     }
 
     // Events are useful to know when things are done (states)
@@ -61,12 +62,12 @@ contract World {
         emit SpeciesAdded(_pokedex_id, _count); // Broadcast the event
     }
 
-    function caughtPokemon(uint256 _pokedex_id, uint256 _hp, uint256 _att, uint256 _def, uint256 _spatt, uint256 _spdef, uint256 _speed, uint256 _lv)
+    function caughtPokemon(uint _id, uint256 _pokedex_id, uint256 _hp, uint256 _att, uint256 _def, uint256 _spatt, uint256 _spdef, uint256 _speed, uint256 _lv)
         public
     {
-        if (species[_pokedex_id].caught < species[_pokedex_id].count) {
+        if (species[_id].caught < species[_id].count) {
             //exist species
-            Species memory _species = species[_pokedex_id];
+            Species memory _species = species[_id];
             _species.caught += 1;
 
             pokemon_counts += 1;
@@ -77,7 +78,7 @@ contract World {
                 msg.sender,
                 _hp,_att,_def,_spatt,_spdef,_speed,_lv
             );
-            species[_pokedex_id] = _species;
+            species[_id] = _species;
             emit SpeciesAdded(_pokedex_id, _species.caught); // Broadcast the event
         }
     }

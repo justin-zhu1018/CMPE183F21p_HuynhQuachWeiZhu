@@ -1,4 +1,4 @@
-export const ADDRESS = '0xE0Dd19e3572aF226e34A6Cb30F5488D54Cb3723e';
+export const ADDRESS = '0x1d8Ace601e1CFB0544285397A8B6b28B9e0Da483';
 export const ABI = [
   {
     "inputs": [],
@@ -196,6 +196,11 @@ export const ABI = [
   },
   {
     "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "_pokedex_id",
