@@ -1,4 +1,4 @@
-export const ADDRESS = '0xa46bA71B9e1A38bE6221F6B096850cc6a037d549';
+export const ADDRESS = '0x6f4B71D2858F7f5F6c6AE01A267d98fD294c90C0';
 export const ABI = [
   {
     "inputs": [],
@@ -54,7 +54,8 @@ export const ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -123,7 +124,8 @@ export const ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -157,7 +159,8 @@ export const ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -170,7 +173,8 @@ export const ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [

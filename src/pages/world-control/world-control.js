@@ -121,7 +121,8 @@ async function add_selected_pokemon() {
         console.log("start");
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
         try {
-            await gameWorld.methods.addSpecies(1, 2).call()
+            await gameWorld.methods.addSpecies(1, 2).send({ from: account }).then(()=>{
+                window.location.reload()});
             
             const gameInst = new web3.eth.Contract(ABI, ADDRESS);
 
