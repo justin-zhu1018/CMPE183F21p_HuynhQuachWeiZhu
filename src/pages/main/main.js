@@ -3,12 +3,10 @@ import Web3 from "web3"
 import { ABI, ADDRESS } from "../../config"
 import { getPokeobj, getStats } from "../pokemon_functions/pokemon"
 import { getTypes } from "../pokemon_functions/pokemon"
-import { Box, Text, Image, Button, Badge, HStack, Grid } from "@chakra-ui/react"
+import { Box, Text, Image, Button, Badge, HStack } from "@chakra-ui/react"
 import "./main.css"
 import PokemonImage from "../../images/pokemon.png"
-import { useDisclosure } from "@chakra-ui/react"
 import ExploreModal from "./ExploreModal"
-import Child from "./Child"
 
 export default function Main() {
   const [status, setStatus] = useState("OK")
@@ -67,6 +65,7 @@ export default function Main() {
         id: species.id,
         poke_info: await getPokeobj(species.pokedex_id),
         poke_type: await getTypes(species.pokedex_id),
+        poke_stats: await getStats(species.pokedex_id),
       })
     }
     setSpecies(temp_arr)
@@ -97,7 +96,7 @@ export default function Main() {
         })
     }
     setUsersPokemon(temp_arr)
-    console.log(temp_arr)
+    console.log("user pokemon Data: ", temp_arr)
   }
 
   const catch_random_pokemon = async () => {
@@ -269,6 +268,9 @@ export default function Main() {
                         <Badge borderRadius="full" px="2" background="green">
                           {creature.poke_type}
                         </Badge>
+                        <Text>Level: {creature.lv}</Text>
+                        <Text>HP: {creature.hp}</Text>
+
                         <Box>
                           {" "}
                           <Button background="#B794F4">
