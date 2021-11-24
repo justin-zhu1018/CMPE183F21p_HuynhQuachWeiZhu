@@ -6,7 +6,7 @@ import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from 'react
 import './main.css'
 
 export default function Main() {
-		const [status, setStatus] = useState('OK')
+	const [status, setStatus] = useState('OK')
     const [network, setNetwork] = useState()
     const [account, setAccount] = useState()
     const [gameWorld, setGameWorld] = useState()
