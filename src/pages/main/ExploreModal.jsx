@@ -11,7 +11,6 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  VStack,
   HStack,
 } from "@chakra-ui/react"
 
@@ -21,13 +20,16 @@ const ExploreModal = ({ catch_random_pokemon }) => {
   // Retrieve explore Pokemon data
   let retrieveData = JSON.parse(localStorage.getItem("explorePokemon"))
   let headerMsg = "Oops, There is no Pokemon in the Wild "
-  let pokemonName = retrieveData.name ? retrieveData.name : ""
+  let pokemonName = retrieveData.poke_info.name
+    ? retrieveData.poke_info.name
+    : ""
   let pokemonType = retrieveData.poke_type ? retrieveData.poke_type : ""
   let pokemonUrl = retrieveData.poke_info.img ? retrieveData.poke_info.img : ""
   let pokemonHp = retrieveData.poke_stats[0].base_stat
     ? retrieveData.poke_stats[0].base_stat
     : ""
   headerMsg = retrieveData ? "Woohoo~~You found a wild Pokemon!" : headerMsg
+  console.log("Retrievedata for pokemon", retrieveData)
 
   return (
     <>
@@ -43,6 +45,9 @@ const ExploreModal = ({ catch_random_pokemon }) => {
           <ModalBody>
             <HStack>
               <Box>
+                <Image src={pokemonUrl} />
+              </Box>
+              <Box>
                 <Text
                   fontSize="25px"
                   fontWeight="semibold"
@@ -51,11 +56,11 @@ const ExploreModal = ({ catch_random_pokemon }) => {
                 >
                   {pokemonName}
                 </Text>
-                <Image src={pokemonUrl} />
-              </Box>
-              <Box>
-                <Text fontSize="20px">Type: {pokemonType}</Text>
-                <Text>HP: {pokemonHp} </Text>
+                <Text as="samp" fontSize="18px">
+                  Type: {pokemonType}
+                  <br></br>
+                  HP: {pokemonHp}{" "}
+                </Text>{" "}
               </Box>
             </HStack>
           </ModalBody>

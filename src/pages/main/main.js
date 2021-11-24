@@ -86,6 +86,7 @@ export default function Main() {
           own: pokemon.own,
           id: pokemon.id,
           poke_info: await getPokeobj(pokemon.pokedex_id),
+          poke_type: await getTypes(pokemon.pokedex_id),
           hp: pokemon.hp,
           att: pokemon.att,
           def: pokemon.def,
@@ -195,7 +196,6 @@ export default function Main() {
                   }}
                 >
                   <ExploreModal
-                    explorePokemondata={explorePokemon}
                     catch_random_pokemon={() => catch_random_pokemon()}
                   />
                 </Button>
@@ -224,7 +224,12 @@ export default function Main() {
                         {creature.poke_info.name}
                       </Text>
                       <Text fontSize="36px">{creature.hp}</Text>
-                      <Badge borderRadius="full" px="2" background="green">
+                      <Badge
+                        borderRadius="full"
+                        color="white"
+                        px="2"
+                        background="green"
+                      >
                         {creature.poke_type}
                       </Badge>
                       <Box>
@@ -265,18 +270,16 @@ export default function Main() {
                         <Text textTransform="uppercase">
                           {creature.poke_info.name}
                         </Text>
-                        <Badge borderRadius="full" px="2" background="green">
+                        <Badge
+                          color="white"
+                          borderRadius="full"
+                          px="2"
+                          background="green"
+                        >
                           {creature.poke_type}
                         </Badge>
                         <Text>Level: {creature.lv}</Text>
                         <Text>HP: {creature.hp}</Text>
-
-                        <Box>
-                          {" "}
-                          <Button background="#B794F4">
-                            {creature.count - creature.caught} left
-                          </Button>
-                        </Box>
                       </Box>
                     </Box>
                   </Box>
