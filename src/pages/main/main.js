@@ -44,7 +44,6 @@ export default function Main() {
     async function loadWorld(gameWorld) {
         const species_counts = await gameWorld.methods.unique_species_count().call()
 					.catch(()=>{setStatus('Did you replace your address and ABI yet?')});
-				setStatus("OK");
         setSpecies_counts(species_counts)
 
         let temp_arr = []
