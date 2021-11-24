@@ -1,6 +1,6 @@
 .poke-card {
   position: absolute;
-  margin-left: 150px;
+  margin-left: 100px;
   margin-right: auto;
 }
 
@@ -45,7 +45,7 @@ img {
   position: absolute;
   width: 100%;
   text-align: center;
-  top: 8%;
+  top: 12%;
 }
 
 .child {
@@ -58,7 +58,7 @@ img {
 .userpokemon_container {
   position: absolute;
   margin-top: 400px;
-  margin-left: 120px;
+  margin-left: 100px;
   display: flex;
   flex-wrap: wrap;
   max-width: 800px;
