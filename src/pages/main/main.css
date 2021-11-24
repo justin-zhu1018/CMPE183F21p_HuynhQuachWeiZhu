@@ -25,7 +25,7 @@ body {
   width: 300px;
   box-shadow: 0 8px 16px rgba(5, 5, 5, 0.3);
   padding: 2px 16px;
-  margin: 16px;
+  margin: 20px;
   border-radius: 8px;
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAG0lEQVQYV2P8//+/FCMj4zMGJMCIzIGxKRQEAJgPBAbJqUVTAAAAAElFTkSuQmCC)
     repeat;
@@ -35,6 +35,7 @@ img {
   border: 0.3px rgba(#e0e0e0);
   box-shadow: 10px 10px 8px rgba(#111111);
   border-radius: 4px;
+  margin-left: 50px;
   padding: 5px;
   width: 150px;
   margin-top: 10px;
@@ -47,8 +48,18 @@ img {
   top: 8%;
 }
 
+.child {
+  flex: 1 0 21%; /* explanation below */
+  margin: 5px;
+  height: 100px;
+  background-color: blue;
+}
+
 .userpokemon_container {
   position: absolute;
-  padding-top: 400px;
-  margin-left: 150px;
+  margin-top: 400px;
+  margin-left: 120px;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 800px;
 }
