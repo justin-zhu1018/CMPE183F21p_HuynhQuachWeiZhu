@@ -22,7 +22,7 @@ useEffect(async () => {
 await loadBlockchainData().then(async (resp) => {
     if (resp) {
         await loadWorld(resp.gameInst)
-        await loadUsersPokemon(resp.gameInst, resp.account)
+        // await loadUsersPokemon(resp.gameInst, resp.account)
     }
 })
 }, [])
@@ -62,57 +62,6 @@ setSpecies(temp_arr)
 console.log(temp_arr)
 }
 
-async function loadUsersPokemon(gameWorld, account) {
-const pokemon_counts = await gameWorld.methods.pokemon_counts().call()
-setPokemon_counts(pokemon_counts)
-
-let temp_arr = []
-for (let i = 1; i <= pokemon_counts; i++) {
-    const pokemon = await gameWorld.methods.pokemons(i).call();
-    if (pokemon.own == account)
-        temp_arr.push({
-            pokedex_id: pokemon.pokedex_id,
-            species_id: pokemon.species_id,
-            own: pokemon.own,
-            id: pokemon.id,
-            poke_info: await getPokeobj(pokemon.pokedex_id),
-            hp: pokemon.hp,
-            att: pokemon.att,
-            def: pokemon.def,
-            spatt: pokemon.spatt,
-            spdef: pokemon.spdef,
-            speed: pokemon.speed,
-            lv: pokemon.lv,
-        })
-}
-setUsersPokemon(temp_arr)
-console.log(temp_arr)
-}
-
-async function catch_random_pokemon() {
-let random_pokemon = 0
-for (let i = 0; i < 10000; i++) {
-    random_pokemon = getRandomInt(species.length)
-    if (species[random_pokemon].caught < species[random_pokemon].count) {
-        random_pokemon = species[random_pokemon]
-        break;
-    }
-    random_pokemon = null
-}
-
-if (random_pokemon) {
-    //catch
-    //pokedex,hp,att,def,spatt,spdef,sp,lv
-    await gameWorld.methods.caughtPokemon(random_pokemon.pokedex_id,100,100,100,100,100,100,100).send({ from: account }).then(()=>{
-        window.location.reload();
-    })
-}
-}
-
-function getRandomInt(max) {
-return Math.floor(Math.random() * max);
-}
-
 async function add_selected_pokemon() {
     if(status === "Did you replace your address and ABI yet?"){
         return;
@@ -121,7 +70,7 @@ async function add_selected_pokemon() {
         console.log("start");
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
         try {
-            await gameWorld.methods.addSpecies(1, 2).send({ from: account }).then(()=>{
+            await gameWorld.methods.addSpecies(1, 1).send({ from: account }).then(()=>{
                 window.location.reload()});
             
             const gameInst = new web3.eth.Contract(ABI, ADDRESS);
