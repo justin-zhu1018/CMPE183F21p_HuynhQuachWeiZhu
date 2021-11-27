@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Web3 from "web3"
 import { ABI, ADDRESS } from "../../config"
-import { getPokeobj, getStats } from "../pokemon_functions/pokemon"
+import { getLevels, getPokeobj, getStats } from "../pokemon_functions/pokemon"
 import { getTypes } from "../pokemon_functions/pokemon"
 import { Box, Text, Image, Button, Badge, HStack } from "@chakra-ui/react"
 import "./main.css"
@@ -66,6 +66,7 @@ export default function Main() {
         poke_info: await getPokeobj(species.pokedex_id),
         poke_type: await getTypes(species.pokedex_id),
         poke_stats: await getStats(species.pokedex_id),
+        poke_level: 100,
       })
     }
     setSpecies(temp_arr)
@@ -114,12 +115,12 @@ export default function Main() {
             .caughtPokemon(
               random_pokemon.id,
               random_pokemon.pokedex_id,
-              100,
-              100,
-              100,
-              100,
-              100,
-              100,
+              random_pokemon.poke_stats[0].base_stat,
+              random_pokemon.poke_stats[1].base_stat,
+              random_pokemon.poke_stats[2].base_stat,
+              random_pokemon.poke_stats[3].base_stat,
+              random_pokemon.poke_stats[4].base_stat,
+              random_pokemon.poke_stats[5].base_stat,
               100
             )
             .send({ from: account })
@@ -280,6 +281,11 @@ export default function Main() {
                         </Badge>
                         <Text>Level: {creature.lv}</Text>
                         <Text>HP: {creature.hp}</Text>
+                        <Text>Speed: {creature.speed}</Text>
+                        <Text>Attack: {creature.att}</Text>
+                        <Text>Defense: {creature.def}</Text>
+                        <Text>Special Attack: {creature.spatt}</Text>
+                        <Text>Special Defense: {creature.spdef}</Text>
                       </Box>
                     </Box>
                   </Box>
