@@ -18,6 +18,7 @@ const ExploreModal = ({ catch_random_pokemon }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   // Retrieve explore Pokemon data
+  // Todo: Need refactor
   let retrieveData = JSON.parse(localStorage.getItem("explorePokemon"))
   let headerMsg = "Oops, There is no Pokemon in the Wild "
   let pokemonName = retrieveData.poke_info.name
@@ -28,7 +29,32 @@ const ExploreModal = ({ catch_random_pokemon }) => {
   let pokemonHp = retrieveData.poke_stats[0].base_stat
     ? retrieveData.poke_stats[0].base_stat
     : ""
+  let pokemonAtt = retrieveData.poke_stats[1].base_stat
+    ? retrieveData.poke_stats[1].base_stat
+    : ""
+  let pokemonDef = retrieveData.poke_stats[2].base_stat
+    ? retrieveData.poke_stats[2].base_stat
+    : ""
+
+  let pokemonSpatt = retrieveData.poke_stats[3].base_stat
+    ? retrieveData.poke_stats[3].base_stat
+    : ""
+
+  let pokemonSpdef = retrieveData.poke_stats[4].base_stat
+    ? retrieveData.poke_stats[4].base_stat
+    : ""
+
+  let pokemonSpeed = retrieveData.poke_stats[5].base_stat
+    ? retrieveData.poke_stats[5].base_stat
+    : ""
+
+  let pokemonLevel = retrieveData.pokemon_Level
+    ? retrieveData.pokemon_Level
+    : 100
+
   headerMsg = retrieveData ? "Woohoo~~You found a wild Pokemon!" : headerMsg
+
+  // For Debug
   console.log("Retrievedata for pokemon", retrieveData)
 
   return (
@@ -41,9 +67,8 @@ const ExploreModal = ({ catch_random_pokemon }) => {
         <ModalContent>
           <ModalHeader>{headerMsg}</ModalHeader>
           <ModalCloseButton />
-
           <ModalBody>
-            <HStack>
+            <HStack background="#EDF2F7">
               <Box>
                 <Image src={pokemonUrl} />
               </Box>
@@ -56,10 +81,22 @@ const ExploreModal = ({ catch_random_pokemon }) => {
                 >
                   {pokemonName}
                 </Text>
-                <Text as="samp" fontSize="18px">
+                <Text as="samp" fontSize="16px">
                   Type: {pokemonType}
                   <br></br>
-                  HP: {pokemonHp}{" "}
+                  Level: {pokemonLevel}
+                  <br></br>
+                  HP: {pokemonHp}
+                  <br></br>
+                  Speed: {pokemonSpeed}
+                  <br></br>
+                  Attack: {pokemonAtt}
+                  <br></br>
+                  Defense: {pokemonDef}
+                  <br></br>
+                  Special Attack: {pokemonSpatt}
+                  <br></br>
+                  Speical Defense: {pokemonSpdef}
                 </Text>{" "}
               </Box>
             </HStack>
