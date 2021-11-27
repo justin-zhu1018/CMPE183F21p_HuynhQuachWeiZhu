@@ -8,6 +8,7 @@ import { ChakraProvider, Table, Thead, Tbody, Tr, Th, Td, Tfoot, TableCaption, C
 import './world-control.css'
 
 export default function WorldControl() {
+
 const [status, setStatus] = useState('OK')
 const [network, setNetwork] = useState()
 const [account, setAccount] = useState()
@@ -62,7 +63,7 @@ setSpecies(temp_arr)
 console.log(temp_arr)
 }
 
-async function add_selected_pokemon() {
+async function add_selected_pokemon(id) {
     if(status === "Did you replace your address and ABI yet?"){
         return;
     }
@@ -70,7 +71,7 @@ async function add_selected_pokemon() {
         console.log("start");
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
         try {
-            await gameWorld.methods.addSpecies(1, 1).send({ from: account }).then(()=>{
+            await gameWorld.methods.addSpecies(id, 1).send({ from: account }).then(()=>{
                 window.location.reload()});
             
             const gameInst = new web3.eth.Contract(ABI, ADDRESS);
@@ -95,13 +96,22 @@ return (
         <p>Network: {network}</p>
         <p>Account: {account}</p>
         <Card className="poke-card">
+            <Center>
+                {/* <Button 
+                    style={{
+                    padding: "5px",
+                    margin: "1px"}} 
+                >
+                Add Pokemon
+                </Button> */}
+            </Center>                           
             <Table size="sm" variant="simple">
                 <TableCaption placement="top">Pokemon World Controller</TableCaption>
                 <Thead>
                     <Tr>
                         <Th>Pokemon</Th>
                         <Th>Number In World</Th>
-                        <Th>Select</Th>
+                        <Th>Add</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
@@ -116,82 +126,17 @@ return (
                                         style={{
                                         padding: "5px",
                                         margin: "1px"}}
-                                        onClick={add_selected_pokemon}
+                                       onClick={() => add_selected_pokemon(creature.id)}
                                     >
-                                    Select
+                                    Add
                                     </Button>
                                 </Td>
                             </Tr>
                         )                               
                     })}
                 </Tbody>
-                <Tfoot>
-                    <Tr>
-                        <Th></Th>
-                        <Th>
-                            <Center>
-                                <Button 
-                                    style={{
-                                    padding: "5px",
-                                    margin: "1px"}} 
-                                >
-                                Add 1
-                                </Button>
-                                <Button 
-                                    style={{
-                                    padding: "5px",
-                                    margin: "1px"}}
-                                >
-                                Add 10
-                                </Button>
-                                <Button 
-                                    style={{
-                                    padding: "5px",
-                                    margin: "1px"}}
-                                >
-                                Add 100
-                                </Button>
-                            </Center>
-                        </Th>
-                        <Th></Th>
-                    </Tr>
-                </Tfoot>
             </Table>
-            {/* <CardBody>
-                <CardTitle tag="h5">
-                    Current Pokemon In The World
-                </CardTitle>
-                <CardSubtitle
-                    className="mb-2 text-muted"
-                    tag="h6"
-                >
-                    Wild Pokemon
-                </CardSubtitle> 
-                    {species.map((creature, ind) => {
-                        return (
-                            <Flex direction = 'row' alignItems = 'center'>
-                                <div key={ind}>
-                                    <img src={creature.poke_info.img} height="50" width="50" 
-                                    />{" "}
-                                    <nobr>{creature.count - creature.caught} left</nobr>{" "}
-                                    <Button 
-                                        style={{marginTop:"20px"}} 
-                                    >
-                                        Select
-                                    </Button>
-                                    <Spacer/>  
-                                </div>
-                            </Flex>
-                        )                               
-                    })}                       
-                <Button style={{marginTop:"20px"}} >Explore!</Button>
-            </CardBody> */}
         </Card>
-
-    
-
-
-
     </div>
 </ChakraProvider>
 
