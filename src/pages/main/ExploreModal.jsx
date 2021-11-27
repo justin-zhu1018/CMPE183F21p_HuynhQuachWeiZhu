@@ -88,15 +88,15 @@ const ExploreModal = ({ catch_random_pokemon }) => {
                   <br></br>
                   HP: {pokemonHp}
                   <br></br>
-                  Speed: {pokemonSpeed}
-                  <br></br>
                   Attack: {pokemonAtt}
                   <br></br>
                   Defense: {pokemonDef}
                   <br></br>
-                  Special Attack: {pokemonSpatt}
+                  Sp. Att: {pokemonSpatt}
                   <br></br>
-                  Speical Defense: {pokemonSpdef}
+                  Sp. Def: {pokemonSpdef}
+                  <br></br>
+                  Speed: {pokemonSpeed}
                 </Text>{" "}
               </Box>
             </HStack>

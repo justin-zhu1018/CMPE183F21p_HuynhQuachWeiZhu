@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Web3 from "web3"
 import { ABI, ADDRESS } from "../../config"
-import { getLevels, getPokeobj, getStats } from "../pokemon_functions/pokemon"
+import { getPokeobj, getStats } from "../pokemon_functions/pokemon"
 import { getTypes } from "../pokemon_functions/pokemon"
 import { Box, Text, Image, Button, Badge, HStack } from "@chakra-ui/react"
 import "./main.css"
@@ -281,11 +281,12 @@ export default function Main() {
                         </Badge>
                         <Text>Level: {creature.lv}</Text>
                         <Text>HP: {creature.hp}</Text>
-                        <Text>Speed: {creature.speed}</Text>
+
                         <Text>Attack: {creature.att}</Text>
                         <Text>Defense: {creature.def}</Text>
-                        <Text>Special Attack: {creature.spatt}</Text>
-                        <Text>Special Defense: {creature.spdef}</Text>
+                        <Text>Sp. Att: {creature.spatt}</Text>
+                        <Text>Sp. Def: {creature.spdef}</Text>
+                        <Text>Speed: {creature.speed}</Text>
                       </Box>
                     </Box>
                   </Box>
