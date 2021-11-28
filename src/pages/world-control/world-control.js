@@ -96,15 +96,15 @@ return (
         <p>Network: {network}</p>
         <p>Account: {account}</p>
         <Card className="poke-card">
-            <Center>
-                {/* <Button 
+            {/* <Center>
+                <Button 
                     style={{
                     padding: "5px",
                     margin: "1px"}} 
                 >
                 Add Pokemon
-                </Button> */}
-            </Center>                           
+                </Button>
+            </Center> */}
             <Table size="sm" variant="simple">
                 <TableCaption placement="top">Pokemon World Controller</TableCaption>
                 <Thead>
