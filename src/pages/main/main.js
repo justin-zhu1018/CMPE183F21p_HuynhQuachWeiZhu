@@ -185,6 +185,8 @@ export default function Main() {
       if (species[random_pokemon].caught < species[random_pokemon].count) {
         random_pokemon = species[random_pokemon]
         setExplorePokemon(random_pokemon)
+        console.log("here")
+        console.log(random_pokemon)
         localStorage.setItem("explorePokemon", JSON.stringify(random_pokemon))
         return random_pokemon
       }
@@ -237,9 +239,11 @@ export default function Main() {
                     explore_random_pokemon()
                   }}
                 >
-                  {localStorage.getItem("explorePokemon")&&<ExploreModal
-                    catch_random_pokemon={() => catch_random_pokemon()}
-                  />}
+                  {
+                    <ExploreModal
+                      catch_random_pokemon={() => catch_random_pokemon()}
+                    />
+                  }
                 </Button>
               </Box>
             </Box>

@@ -20,42 +20,50 @@ const ExploreModal = ({ catch_random_pokemon }) => {
   // Retrieve explore Pokemon data
   // Todo: Need refactor
   let retrieveData = JSON.parse(localStorage.getItem("explorePokemon"))
+  let pokemonName = ""
+  let pokemonUrl = ""
+  let pokemonType = ""
+  let pokemonHp = ""
+  let pokemonAtt = ""
+  let pokemonDef = ""
+  let pokemonSpatt = ""
+  let pokemonSpdef = ""
+  let pokemonSpeed = ""
+  let pokemonLevel = ""
   let headerMsg = "Oops, There is no Pokemon in the Wild "
-  let pokemonName = retrieveData.poke_info.name
-    ? retrieveData.poke_info.name
-    : ""
-  let pokemonType = retrieveData.poke_type ? retrieveData.poke_type : ""
-  let pokemonUrl = retrieveData.poke_info.img ? retrieveData.poke_info.img : ""
-  let pokemonHp = retrieveData.poke_stats[0].base_stat
-    ? retrieveData.poke_stats[0].base_stat
-    : ""
-  let pokemonAtt = retrieveData.poke_stats[1].base_stat
-    ? retrieveData.poke_stats[1].base_stat
-    : ""
-  let pokemonDef = retrieveData.poke_stats[2].base_stat
-    ? retrieveData.poke_stats[2].base_stat
-    : ""
 
-  let pokemonSpatt = retrieveData.poke_stats[3].base_stat
-    ? retrieveData.poke_stats[3].base_stat
-    : ""
+  if (retrieveData) {
+    pokemonName = retrieveData.poke_info.name ? retrieveData.poke_info.name : ""
+    pokemonType = retrieveData.poke_type ? retrieveData.poke_type : ""
+    pokemonUrl = retrieveData.poke_info.img ? retrieveData.poke_info.img : ""
+    pokemonHp = retrieveData.poke_stats[0].base_stat
+      ? retrieveData.poke_stats[0].base_stat
+      : ""
+    pokemonAtt = retrieveData.poke_stats[1].base_stat
+      ? retrieveData.poke_stats[1].base_stat
+      : ""
+    pokemonDef = retrieveData.poke_stats[2].base_stat
+      ? retrieveData.poke_stats[2].base_stat
+      : ""
 
-  let pokemonSpdef = retrieveData.poke_stats[4].base_stat
-    ? retrieveData.poke_stats[4].base_stat
-    : ""
+    pokemonSpatt = retrieveData.poke_stats[3].base_stat
+      ? retrieveData.poke_stats[3].base_stat
+      : ""
 
-  let pokemonSpeed = retrieveData.poke_stats[5].base_stat
-    ? retrieveData.poke_stats[5].base_stat
-    : ""
+    pokemonSpdef = retrieveData.poke_stats[4].base_stat
+      ? retrieveData.poke_stats[4].base_stat
+      : ""
 
-  let pokemonLevel = retrieveData.pokemon_Level
-    ? retrieveData.pokemon_Level
-    : 100
+    pokemonSpeed = retrieveData.poke_stats[5].base_stat
+      ? retrieveData.poke_stats[5].base_stat
+      : ""
 
-  headerMsg = retrieveData ? "Woohoo~~You found a wild Pokemon!" : headerMsg
+    pokemonLevel = retrieveData.pokemon_Level ? retrieveData.pokemon_Level : 100
 
-  // For Debug
-  console.log("Retrievedata for pokemon", retrieveData)
+    headerMsg = retrieveData ? "Woohoo~~You found a wild Pokemon!" : headerMsg
+    // For Debug
+    console.log("Retrievedata for pokemon", retrieveData)
+  }
 
   return (
     <>
