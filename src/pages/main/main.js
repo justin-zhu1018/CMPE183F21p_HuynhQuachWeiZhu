@@ -237,9 +237,9 @@ export default function Main() {
                     explore_random_pokemon()
                   }}
                 >
-                  <ExploreModal
+                  {localStorage.getItem("explorePokemon")&&<ExploreModal
                     catch_random_pokemon={() => catch_random_pokemon()}
-                  />
+                  />}
                 </Button>
               </Box>
             </Box>
