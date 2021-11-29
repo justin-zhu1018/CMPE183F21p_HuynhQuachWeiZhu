@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react"
 import Web3 from "web3"
-import { ABI, ADDRESS } from "../../config"
 import { getPokeobj, getStats } from "../pokemon_functions/pokemon"
 import { getTypes } from "../pokemon_functions/pokemon"
 import { Box, Text, Image, Button, Badge, HStack } from "@chakra-ui/react"
 import "./main.css"
 import PokemonImage from "../../images/pokemon.png"
 import ExploreModal from "./ExploreModal"
+import World from "../../abis/World.json"
+
+// Enable this if you want to manually import JSON
+// import { ABI, ADDRESS } from "../../config"
 
 export default function Main() {
   const [status, setStatus] = useState("OK")
@@ -16,6 +19,7 @@ export default function Main() {
   const [species, setSpecies] = useState([])
   const [usersPokemon, setUsersPokemon] = useState()
   const [explorePokemon, setExplorePokemon] = useState()
+  const [address, setAddress] = useState()
 
   const [species_counts, setSpecies_counts] = useState(0)
   const [pokemon_counts, setPokemon_counts] = useState(0)
@@ -30,10 +34,20 @@ export default function Main() {
   }, [])
 
   async function loadBlockchainData() {
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:7545") // for MetaMask
-    const network = await web3.eth.net.getNetworkType() // Network you're connected to
-    const accounts = await web3.eth.getAccounts() // Array of accounts
-    const gameInst = new web3.eth.Contract(ABI, ADDRESS)
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:7545")
+    const network = await web3.eth.net.getNetworkType()
+    const accounts = await web3.eth.getAccounts()
+
+    // Enable this if need to manually read ABI and ADDRESS
+    // const gameInst = new web3.eth.Contract(ABI, ADDRESS)
+
+    // Read JSON from src
+    const networkId = await web3.eth.net.getId()
+    const networkData = World.networks[networkId]
+    const abi = World.abi
+    const address = networkData.address
+    setAddress(address)
+    const gameInst = new web3.eth.Contract(abi, address)
 
     setNetwork(network || null)
     setAccount(accounts[0] || null)
@@ -137,6 +151,33 @@ export default function Main() {
       setStatus("Please make sure your MetaMask account is connected!")
     }
   }
+
+  async function add_selected_pokemon(id) {
+    if (status === "Did you replace your address and ABI yet?") {
+      return
+    }
+    if (network && account) {
+      console.log("start")
+      const web3 = new Web3(Web3.givenProvider || "http://localhost:7545")
+      try {
+        await gameWorld.methods
+          .addSpecies(id, 1)
+          .send({ from: account })
+          .then(() => {
+            window.location.reload()
+          })
+
+        const gameInst = new web3.eth.Contract(World.abi, address)
+        setGameWorld(gameInst || gameWorld)
+        setStatus("OK")
+      } catch (error) {
+        setStatus("User denied transaction signature!")
+      }
+    } else {
+      setStatus("Please make sure your MetaMask account is connected!")
+    }
+  }
+
   function explore_random_pokemon() {
     let random_pokemon = 0
     for (let i = 0; i < 10000; i++) {
@@ -234,11 +275,18 @@ export default function Main() {
                         {creature.poke_type}
                       </Badge>
                       <Box>
-                        {" "}
-                        <Button background="#B794F4">
+                        <Badge ml="1" fontSize="0.8em" colorScheme="purple">
                           {creature.count - creature.caught} left
-                        </Button>
+                        </Badge>
                       </Box>
+                      <Button
+                        colorScheme="teal"
+                        variant="solid"
+                        size="md"
+                        onClick={() => add_selected_pokemon(creature.id)}
+                      >
+                        Add
+                      </Button>
                     </Box>
                   </Box>
                 </Box>
@@ -248,9 +296,12 @@ export default function Main() {
         </Box>
 
         <Box className="userpokemon_container">
-          <Text fontSize="50px" fontWeight="semibold" color="black">
-            Your Pokemons:
-          </Text>
+          <Box>
+            {" "}
+            <Text fontSize="40px" fontWeight="semibold" color="black">
+              Your Pokemons:
+            </Text>
+          </Box>
 
           <Box className="d-flex flex-row mb=4">
             {usersPokemon &&

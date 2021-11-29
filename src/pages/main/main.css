@@ -59,7 +59,6 @@ img {
   position: absolute;
   margin-top: 400px;
   margin-left: 100px;
-  display: flex;
   flex-wrap: wrap;
   max-width: 800px;
 }
